@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_29_062022) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_31_074250) do
+  create_table "calendar_events", force: :cascade do |t|
+    t.string "title"
+    t.string "desription"
+    t.string "start_date"
+    t.string "end_date"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_calendar_events_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -36,4 +47,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_29_062022) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "calendar_events", "users"
 end
